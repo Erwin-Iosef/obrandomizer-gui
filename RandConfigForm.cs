@@ -113,7 +113,7 @@ namespace obrandomizer_gui
                         .AddIniFile(fileName, optional: false)
                         .Build();
                 int n;
-                double d;
+                double decimalout;
                 var invalidParses = new List<string>();
                 /*
                 [Misc]
@@ -246,37 +246,37 @@ namespace obrandomizer_gui
                 }
 
                 checkActorScaling.Checked = StringToBool(section["oScaleActors"]);
-                if (!Double.TryParse(section["oScaleMin"], out d))
+                if (!Double.TryParse(section["oScaleMin"], out decimalout))
                 {
-                    if (!Double.TryParse(section["oScaleMin"].Replace(".", DecimalSeparator), out d))
+                    if (!Double.TryParse(section["oScaleMin"].Replace(".", DecimalSeparator), out decimalout))
                     {
                         invalidParses.Add("oScaleMin");
                         textActorScalingMin.Text = $"{0.7}";
                     }
                     else
                     {
-                        textActorScalingMin.Text = $"{d}";
+                        textActorScalingMin.Text = $"{decimalout}";
                     }
                 }
                 else
                 {
-                    textActorScalingMin.Text = $"{d}";
+                    textActorScalingMin.Text = $"{decimalout}";
                 }
-                if (!Double.TryParse(section["oScaleMax"], out d))
+                if (!Double.TryParse(section["oScaleMax"], out decimalout))
                 {
-                    if (!Double.TryParse(section["oScaleMax"].Replace(".", DecimalSeparator), out d))
+                    if (!Double.TryParse(section["oScaleMax"].Replace(".", DecimalSeparator), out decimalout))
                     {
                         invalidParses.Add("oScaleMax");
                         textActorScalingMax.Text = $"{1.5}";
                     }
                     else
                     {
-                        textActorScalingMax.Text = $"{d}";
+                        textActorScalingMax.Text = $"{decimalout}";
                     }
                 }
                 else
                 {
-                    textActorScalingMax.Text = $"{d}";
+                    textActorScalingMax.Text = $"{decimalout}";
                 }
 
                 /*[Creatures]
@@ -446,31 +446,19 @@ namespace obrandomizer_gui
                 //this is ugly
                 //output.WriteLine("oRandomizeAttrib=" + (radioAttribDisabled.Checked || radioRestoreActorAttribYes.Checked ? "0" : "1"));
                 //output.WriteLine("oRandomizeAttribEssential=" + (radioAttribAll.Checked && radioRestoreActorAttribNo.Checked ? "1" : "0"));
-                if (radioAttribAll.Checked)
-                {
-                    output.WriteLine("oRandomizeAttrib=2");
-                }
-                else if (radioAttribNonEssential.Checked)
-                {
-                    output.WriteLine("oRandomizeAttrib=1");
-                }
-                else
-                {
-                    output.WriteLine("oRandomizeAttrib=0");
-                }
 
-                if (radioStatAll.Checked)
-                {
-                    output.WriteLine("oRandomizeStats=2");
-                }
-                else if (radioStatNonEssential.Checked)
-                {
-                    output.WriteLine("oRandomizeStats=1");
-                }
-                else
-                {
-                    output.WriteLine("oRandomizeStats=0");
-                }
+                if (radioAttribAll.Checked) { output.WriteLine("oRandomizeAttrib=2"); }
+
+                else if (radioAttribNonEssential.Checked) { output.WriteLine("oRandomizeAttrib=1"); }
+
+                else { output.WriteLine("oRandomizeAttrib=0"); }
+
+                if (radioStatAll.Checked) { output.WriteLine("oRandomizeStats=2"); }
+
+                else if (radioStatNonEssential.Checked) { output.WriteLine("oRandomizeStats=1"); }
+
+                else { output.WriteLine("oRandomizeStats=0"); }
+
                 //restore attributes
                 output.WriteLine("oRestoreBaseAttributes=" + (radioRestoreActorAttribYes.Checked ? "1" : "0"));
                 //vampirism
@@ -481,19 +469,14 @@ namespace obrandomizer_gui
                 output.WriteLine("oScaleMax=" + textActorScalingMax.Text.Replace(DecimalSeparator, "."));
                 //Creatures
                 output.WriteLine("\n[Creatures]");
+
                 //randomization
-                if (radioRandCreaturesDisabled.Checked)
-                {
-                    output.WriteLine("oRandCreatures=0");
-                }
-                else if (radioRandCreaturesEnabled.Checked)
-                {
-                    output.WriteLine("oRandCreatures=1");
-                }
-                else// if (radioRandCreaturesUnstable.Checked)
-                {
-                    output.WriteLine("oRandCreatures=2");
-                }
+                if (radioRandCreaturesDisabled.Checked) { output.WriteLine("oRandCreatures=0"); }
+
+                else if (radioRandCreaturesEnabled.Checked) { output.WriteLine("oRandCreatures=1"); }
+                // if (radioRandCreaturesUnstable.Checked)
+                else { output.WriteLine("oRandCreatures=2"); }
+
                 //use essential
                 output.WriteLine("oUseEssentialCreatures=" + (radioUseEssentialCreaturesYes.Checked ? "1" : "0"));
                 //exclude horses
