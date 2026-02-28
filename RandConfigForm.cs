@@ -797,7 +797,6 @@ namespace obrandomizer_gui
             if (!Double.TryParse(textActorScalingMin.Text, out min))
             {
                 errorProvider.SetError(textActorScalingMin, "Could not convert the input to a floating-point number.");
-                textActorScalingMin.Focus();
                 buttonSave.Enabled = false;
                 return;
             }
@@ -805,7 +804,6 @@ namespace obrandomizer_gui
             if (Double.TryParse(textActorScalingMax.Text, out max) && max < min)
             {
                 errorProvider.SetError(textActorScalingMin, $"Minimum scaling value cannot be greater than the maximum scaling value ({max}).");
-                textActorScalingMin.Focus();
                 buttonSave.Enabled = false;
                 return;
             }
@@ -819,7 +817,6 @@ namespace obrandomizer_gui
             if (!Double.TryParse(textActorScalingMax.Text, out max))
             {
                 errorProvider.SetError(textActorScalingMax, "Could not convert the input to a floating-point number.");
-                textActorScalingMax.Focus();
                 buttonSave.Enabled = false;
                 return;
             }
@@ -827,7 +824,6 @@ namespace obrandomizer_gui
             if (Double.TryParse(textActorScalingMin.Text, out min) && max < min)
             {
                 errorProvider.SetError(textActorScalingMax, $"Maximum scaling value cannot be lower than the minimum scaling value ({min}).");
-                textActorScalingMax.Focus();
                 buttonSave.Enabled = false;
                 return;
             }
